@@ -39,6 +39,23 @@ All game state lives in `src/state/gameState.ts`. The core data model:
 
 - `src/utils/exportCSV.ts` — generates and downloads a CSV file using the Blob API. Filename format: `basketball-stats-YYYY-MM-DD.csv`.
 
+## Planned: Offline Voice Input
+
+The current `VoiceInput.tsx` uses the browser's `SpeechRecognition` API, which requires internet (Chrome/Safari send audio to Google/Apple servers).
+
+The goal is to add a toggle so the user can switch between:
+- **Server mode** (current) — Web Speech API, fast, requires internet
+- **Local mode** (planned) — Whisper running in-browser via WebAssembly, offline after first load
+
+**Planned implementation for local mode:**
+- Library: `@xenova/transformers` (Hugging Face Transformers.js)
+- Model: `whisper-tiny` (~40MB) or `whisper-base` (~150MB), cached in browser after first download
+- Audio capture: `MediaRecorder` API → audio buffer → Whisper pipeline
+- Threading: run model in a Web Worker to avoid blocking the UI
+- The parsed transcript output feeds into the existing `voiceParser.ts` pipeline unchanged
+
+The toggle state should persist in `localStorage` so the user's preference is remembered between sessions.
+
 ## TypeScript Config
 
 Strict mode is enabled with `noUnusedLocals`, `noUnusedParameters`, and `noFallthroughCasesInSwitch`. The build (`tsc && vite build`) will fail on unused variables.
