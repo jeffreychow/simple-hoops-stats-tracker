@@ -62,12 +62,6 @@ export default function SummaryScreen({ gameState, onNewGame }: SummaryScreenPro
               <tbody>
                 {roster.map((player) => {
                   const stats = calculatePlayerStats(player, events);
-                  const fgMade = stats['2pt-made'] + stats['3pt-made'];
-                  const fgAttempted = fgMade + stats['2pt-missed'] + stats['3pt-missed'];
-                  const fgPercent = fgAttempted > 0 
-                    ? ((fgMade / fgAttempted) * 100).toFixed(1) 
-                    : '0.0';
-                  
                   return (
                     <tr key={player.id} className="border-b hover:bg-gray-50">
                       <td className="p-2 font-medium">
