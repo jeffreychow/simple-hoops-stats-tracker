@@ -1,13 +1,15 @@
-export type StatType = 
-  | '2pt-make' 
-  | '2pt-miss' 
-  | '3pt-make' 
-  | '3pt-miss' 
-  | 'rebound' 
-  | 'assist' 
-  | 'steal' 
-  | 'block' 
-  | 'foul' 
+export type StatType =
+  | '2pt-make'
+  | '2pt-miss'
+  | '3pt-make'
+  | '3pt-miss'
+  | 'ft-make'
+  | 'ft-miss'
+  | 'rebound'
+  | 'assist'
+  | 'steal'
+  | 'block'
+  | 'foul'
   | 'turnover';
 
 export interface Player {
@@ -30,6 +32,8 @@ export interface PlayerStats {
   '2pt-missed': number;
   '3pt-made': number;
   '3pt-missed': number;
+  'ft-made': number;
+  'ft-missed': number;
   rebounds: number;
   assists: number;
   steals: number;
@@ -114,6 +118,8 @@ export function calculatePlayerStats(
     '2pt-missed': 0,
     '3pt-made': 0,
     '3pt-missed': 0,
+    'ft-made': 0,
+    'ft-missed': 0,
     rebounds: 0,
     assists: 0,
     steals: 0,
@@ -137,6 +143,13 @@ export function calculatePlayerStats(
         break;
       case '3pt-miss':
         stats['3pt-missed']++;
+        break;
+      case 'ft-make':
+        stats['ft-made']++;
+        stats.points += 1;
+        break;
+      case 'ft-miss':
+        stats['ft-missed']++;
         break;
       case 'rebound':
         stats.rebounds++;
@@ -170,6 +183,8 @@ export function calculateTeamStats(roster: Player[], events: GameEvent[]): Playe
     '2pt-missed': 0,
     '3pt-made': 0,
     '3pt-missed': 0,
+    'ft-made': 0,
+    'ft-missed': 0,
     rebounds: 0,
     assists: 0,
     steals: 0,
@@ -185,6 +200,8 @@ export function calculateTeamStats(roster: Player[], events: GameEvent[]): Playe
     teamStats['2pt-missed'] += playerStats['2pt-missed'];
     teamStats['3pt-made'] += playerStats['3pt-made'];
     teamStats['3pt-missed'] += playerStats['3pt-missed'];
+    teamStats['ft-made'] += playerStats['ft-made'];
+    teamStats['ft-missed'] += playerStats['ft-missed'];
     teamStats.rebounds += playerStats.rebounds;
     teamStats.assists += playerStats.assists;
     teamStats.steals += playerStats.steals;

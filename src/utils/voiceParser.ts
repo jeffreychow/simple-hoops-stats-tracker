@@ -66,6 +66,9 @@ export function getStatTypeFromText(text: string): StatType | null {
   ) {
     return t.includes('miss') ? '3pt-miss' : '3pt-make';
   }
+  if (t.includes('free throw') || t.includes('foul shot')) {
+    return t.includes('miss') ? 'ft-miss' : 'ft-make';
+  }
   if (t.includes('rebound') || t.includes('reb')) return 'rebound';
   if (t.includes('assist') || t.includes('ast')) return 'assist';
   if (t.includes('steal') || t.includes('stl')) return 'steal';
@@ -138,6 +141,10 @@ function getPlayerCandidateTokens(clause: string): string[] {
     'fouls',
     'turnover',
     'turnovers',
+    'free',
+    'throw',
+    'foul',
+    'shot',
     'number',
     'num',
   ]);
@@ -197,6 +204,8 @@ const STAT_EVENT_LABELS: Record<StatType, string> = {
   '2pt-miss': '2 point missed',
   '3pt-make': '3 point made',
   '3pt-miss': '3 point missed',
+  'ft-make': 'free throw made',
+  'ft-miss': 'free throw missed',
   rebound: 'rebound',
   assist: 'assist',
   steal: 'steal',

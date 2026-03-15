@@ -13,6 +13,8 @@ const STAT_BUTTONS: { type: StatType; label: string; color: string }[] = [
   { type: '2pt-miss', label: '2PT ✗', color: 'bg-red-600 hover:bg-red-700' },
   { type: '3pt-make', label: '3PT ✓', color: 'bg-green-600 hover:bg-green-700' },
   { type: '3pt-miss', label: '3PT ✗', color: 'bg-red-600 hover:bg-red-700' },
+  { type: 'ft-make', label: 'FT ✓', color: 'bg-green-600 hover:bg-green-700' },
+  { type: 'ft-miss', label: 'FT ✗', color: 'bg-red-600 hover:bg-red-700' },
   { type: 'rebound', label: 'Reb', color: 'bg-blue-600 hover:bg-blue-700' },
   { type: 'assist', label: 'Ast', color: 'bg-purple-600 hover:bg-purple-700' },
   { type: 'steal', label: 'Stl', color: 'bg-yellow-600 hover:bg-yellow-700' },
@@ -26,6 +28,8 @@ const STAT_EVENT_LABELS: Record<StatType, string> = {
   '2pt-miss': '2 point missed',
   '3pt-make': '3 point made',
   '3pt-miss': '3 point missed',
+  'ft-make': 'free throw made',
+  'ft-miss': 'free throw missed',
   'rebound': 'rebound',
   'assist': 'assist',
   'steal': 'steal',
@@ -305,6 +309,7 @@ export default function GameScreen({ initialState, onEndGame }: GameScreenProps)
                   <th className="text-center p-2">Pts</th>
                   <th className="text-center p-2">2PT</th>
                   <th className="text-center p-2">3PT</th>
+                  <th className="text-center p-2">FT</th>
                   <th className="text-center p-2">Reb</th>
                   <th className="text-center p-2">Ast</th>
                   <th className="text-center p-2">Stl</th>
@@ -328,6 +333,9 @@ export default function GameScreen({ initialState, onEndGame }: GameScreenProps)
                       <td className="text-center p-2">
                         {stats['3pt-made']}/{stats['3pt-made'] + stats['3pt-missed']}
                       </td>
+                      <td className="text-center p-2">
+                        {stats['ft-made']}/{stats['ft-made'] + stats['ft-missed']}
+                      </td>
                       <td className="text-center p-2">{stats.rebounds}</td>
                       <td className="text-center p-2">{stats.assists}</td>
                       <td className="text-center p-2">{stats.steals}</td>
@@ -345,6 +353,9 @@ export default function GameScreen({ initialState, onEndGame }: GameScreenProps)
                   </td>
                   <td className="text-center p-2">
                     {teamStats['3pt-made']}/{teamStats['3pt-made'] + teamStats['3pt-missed']}
+                  </td>
+                  <td className="text-center p-2">
+                    {teamStats['ft-made']}/{teamStats['ft-made'] + teamStats['ft-missed']}
                   </td>
                   <td className="text-center p-2">{teamStats.rebounds}</td>
                   <td className="text-center p-2">{teamStats.assists}</td>

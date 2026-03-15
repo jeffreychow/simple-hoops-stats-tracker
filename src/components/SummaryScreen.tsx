@@ -51,6 +51,7 @@ export default function SummaryScreen({ gameState, onNewGame }: SummaryScreenPro
                   <th className="text-center p-2">Pts</th>
                   <th className="text-center p-2">2PT M/A</th>
                   <th className="text-center p-2">3PT M/A</th>
+                  <th className="text-center p-2">FT M/A</th>
                   <th className="text-center p-2">Reb</th>
                   <th className="text-center p-2">Ast</th>
                   <th className="text-center p-2">Stl</th>
@@ -74,6 +75,9 @@ export default function SummaryScreen({ gameState, onNewGame }: SummaryScreenPro
                       <td className="text-center p-2">
                         {stats['3pt-made']}/{stats['3pt-made'] + stats['3pt-missed']}
                       </td>
+                      <td className="text-center p-2">
+                        {stats['ft-made']}/{stats['ft-made'] + stats['ft-missed']}
+                      </td>
                       <td className="text-center p-2">{stats.rebounds}</td>
                       <td className="text-center p-2">{stats.assists}</td>
                       <td className="text-center p-2">{stats.steals}</td>
@@ -91,6 +95,9 @@ export default function SummaryScreen({ gameState, onNewGame }: SummaryScreenPro
                   </td>
                   <td className="text-center p-2">
                     {teamStats['3pt-made']}/{teamStats['3pt-made'] + teamStats['3pt-missed']}
+                  </td>
+                  <td className="text-center p-2">
+                    {teamStats['ft-made']}/{teamStats['ft-made'] + teamStats['ft-missed']}
                   </td>
                   <td className="text-center p-2">{teamStats.rebounds}</td>
                   <td className="text-center p-2">{teamStats.assists}</td>
