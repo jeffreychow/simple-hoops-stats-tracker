@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { GameState, StatType, GameEvent, calculatePlayerStats, calculateTeamStats } from '../state/gameState';
 import { saveState } from '../state/gameState';
+import { exportGameToCSV } from '../utils/exportCSV';
 import VoiceInput from './VoiceInput';
 
 interface GameScreenProps {
   initialState: GameState;
-  onEndGame: () => void;
+  onEndGame: (finalState: GameState) => void;
 }
 
 const STAT_BUTTONS: { type: StatType; label: string; color: string }[] = [
@@ -121,7 +122,13 @@ export default function GameScreen({ initialState, onEndGame }: GameScreenProps)
           <div className="flex justify-between items-center mb-2">
             <h1 className="text-xl font-bold">Game Stats</h1>
             <button
-              onClick={onEndGame}
+              onClick={() => exportGameToCSV(gameState)}
+              className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 text-sm font-medium"
+            >
+              Export CSV
+            </button>
+            <button
+              onClick={() => onEndGame(gameState)}
               className="px-4 py-2 bg-red-600 rounded hover:bg-red-700 text-sm font-medium"
             >
               End Game

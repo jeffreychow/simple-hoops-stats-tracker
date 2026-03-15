@@ -27,7 +27,8 @@ export default function App() {
     setScreen('game');
   };
 
-  const handleEndGame = () => {
+  const handleEndGame = (finalState: GameState) => {
+    setGameState(finalState);
     setScreen('summary');
   };
 
